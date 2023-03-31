@@ -17,6 +17,9 @@ namespace standard{
         private int dimming_threshold;
         private int reset_threshold;
 
+        private int brightness_copy;
+        private int power_copy;
+
         public Lumen(int brightness, int size, int power, int dimming_threshold, int reset_threshold){
             this.brightness = brightness;
             this.size = size;
@@ -24,6 +27,9 @@ namespace standard{
             this.glow_request = 0;
             this.dimming_threshold = dimming_threshold;
             this.reset_threshold = reset_threshold;
+
+            this.brightness_copy = brightness;
+            this.power_copy = power;
         }
 
         public int glow(){
@@ -43,7 +49,8 @@ namespace standard{
 
         public void reset(){
             if ((glow_request > reset_threshold) && (power > INACTIVE_STATE)){
-                power += glow_request;
+                power = power_copy;
+                brightness = brightness_copy;
                 glow_request = 0;
             }
             else if (brightness > INACTIVE_STATE){
