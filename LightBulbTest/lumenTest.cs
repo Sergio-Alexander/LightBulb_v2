@@ -11,7 +11,7 @@ namespace LightBulbTest {
         public void Setup(){
             // Brightness, size, power, dimming_threshold, reset_threshold
             // Glow should return brightness * size
-            lumen = new Lumen(10, 2, 50, 10, 5);
+            lumen = new Lumen(10, 2, 50, 10, 5, 4);
         }
 
         [Test]

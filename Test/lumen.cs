@@ -12,35 +12,42 @@ namespace standard{
         private int brightness;
         private int size;
         private int power;
-        private int glow_request;
 
-        private int dimming_threshold;
+        private int glow_request;
+        private int dimming_value;
+
+       
         private int reset_threshold;
+        private int power_threshold;
 
         private int brightness_copy;
         private int power_copy;
 
-        public Lumen(int brightness, int size, int power, int dimming_threshold, int reset_threshold){
-            this.brightness = brightness;
-            this.size = size;
-            this.power = power;
-            this.glow_request = 0;
-            this.dimming_threshold = dimming_threshold;
-            this.reset_threshold = reset_threshold;
+        public Lumen(int input_brightness, int input_size, int input_power, int input_dimming_value, int input_reset_threshold, int input_power_threshold)
+        {
+            this.brightness = input_brightness;
+            this.size = input_size;
+            this.power = input_power;
 
-            this.brightness_copy = brightness;
-            this.power_copy = power;
+            this.glow_request = 0;
+            this.dimming_value = input_dimming_value;
+
+            this.reset_threshold = input_reset_threshold;
+            this.power_threshold = input_power_threshold;
+
+            this.brightness_copy = input_brightness;
+            this.power_copy = input_power;
         }
 
         public int glow(){
-            if (power <= INACTIVE_STATE){
-                return dimming_threshold;
+            if (isActive() == false){
+                return dimming_value;
             }
 
             glow_request++;
             power--;
 
-            if (power > dimming_threshold){
+            if (isActive() == true){
                 return brightness * size;
             }
 
@@ -53,7 +60,7 @@ namespace standard{
                 brightness = brightness_copy;
                 glow_request = 0;
             }
-            else if (brightness > INACTIVE_STATE){
+            else {
                 brightness--;
             }
         }
@@ -61,6 +68,15 @@ namespace standard{
         private int ErraticValue(){
             Random random_number = new Random();
             return random_number.Next(power);
+        }
+
+        public bool isActive()
+        {
+            if (power <= power_threshold)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

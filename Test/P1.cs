@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace LightBulb
 {
     public class P1
@@ -14,11 +16,11 @@ namespace LightBulb
             // Create an array of Lumen objects
             Lumen[] lumens = new Lumen[]
             {
-            new Lumen(10, 2, 50, 10, 5),
-            new Lumen(8, 3, 40, 15, 4),
-            new Lumen(6, 4, 30, 20, 3),
-            new Lumen(4, 5, 20, 25, 2),
-            new Lumen(2, 6, 10, 30, 1)
+            new Lumen(10, 2, 50, 10, 5, 4),
+            new Lumen(8, 3, 40, 15, 4, 3),
+            new Lumen(6, 4, 30, 20, 3, 2),
+            new Lumen(4, 5, 20, 25, 2, 1),
+            new Lumen(2, 6, 10, 30, 1, 1)
             };
 
             Console.WriteLine("Initial Glow:");
