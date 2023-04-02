@@ -1,11 +1,5 @@
-﻿using standard;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
+﻿using System;
+using standard;
 
 namespace LightBulb
 {
@@ -13,27 +7,50 @@ namespace LightBulb
     {
         static void Main()
         {
-            // Create an array of Lumen objects
-            Lumen[] lumens = new Lumen[]
-            {
-            new Lumen(10, 2, 50, 10, 5, 4),
-            new Lumen(8, 3, 40, 15, 4, 3),
-            new Lumen(6, 4, 30, 20, 3, 2),
-            new Lumen(4, 5, 20, 25, 2, 1),
-            new Lumen(2, 6, 10, 30, 1, 1)
-            };
+            Lumen[] lumens = InitializeLumenObjects();
 
             Console.WriteLine("Initial Glow:");
+            DisplayGlows(lumens);
 
-            // Display initial glow for all Lumen objects
+            Console.WriteLine("\nGlow after some requests:");
+            PerformGlowRequests(lumens);
+            DisplayGlows(lumens);
+
+            Console.WriteLine("\nGlow after reset attempts:");
+            AttemptResets(lumens);
+            DisplayGlows(lumens);
+        }
+
+        static Lumen[] InitializeLumenObjects()
+        {
+            Console.WriteLine("Enter the number of Lumen objects:");
+            int numOfLumens = int.Parse(Console.ReadLine());
+
+            Lumen[] lumens = new Lumen[numOfLumens];
+
+            for (int i = 0; i < numOfLumens; i++)
+            {
+                Console.WriteLine($"Enter brightness, size, and power for Lumen {i + 1}:");
+                int brightness = int.Parse(Console.ReadLine());
+                int size = int.Parse(Console.ReadLine());
+                int power = int.Parse(Console.ReadLine());
+
+                lumens[i] = new Lumen(brightness, size, power, 10, 5, 4);
+            }
+
+            return lumens;
+        }
+
+        static void DisplayGlows(Lumen[] lumens)
+        {
             for (int i = 0; i < lumens.Length; i++)
             {
                 Console.WriteLine($"Lumen {i + 1}: {lumens[i].glow()}");
             }
+        }
 
-            Console.WriteLine("\nGlow after some requests:");
-
-            // Perform some glow requests
+        static void PerformGlowRequests(Lumen[] lumens)
+        {
             for (int i = 0; i < lumens.Length; i++)
             {
                 for (int j = 0; j < i + 1; j++)
@@ -41,25 +58,13 @@ namespace LightBulb
                     lumens[i].glow();
                 }
             }
+        }
 
-            // Display glow after some requests for all Lumen objects
-            for (int i = 0; i < lumens.Length; i++)
-            {
-                Console.WriteLine($"Lumen {i + 1}: {lumens[i].glow()}");
-            }
-
-            Console.WriteLine("\nGlow after reset attempts:");
-
-            // Attempt to reset all Lumen objects
+        static void AttemptResets(Lumen[] lumens)
+        {
             for (int i = 0; i < lumens.Length; i++)
             {
                 lumens[i].reset();
-            }
-
-            // Display glow after reset attempts for all Lumen objects
-            for (int i = 0; i < lumens.Length; i++)
-            {
-                Console.WriteLine($"Lumen {i + 1}: {lumens[i].glow()}");
             }
         }
     }
